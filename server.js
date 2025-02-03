@@ -74,7 +74,7 @@ app.post('/user/login', async (req, res) => {
 
 // Connecting to the MongoDB database using Mongoose
 mongoose
-.connect('mongodb+srv://admin:Tq89eK}Z@cluster0.rlr8u.mongodb.net/Node-API?retryWrites=true&w=majority&appName=Cluster0', {
+.connect('mongodb+srv://*****:********@cluster0.rlr8u.mongodb.net/Node-API?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
