@@ -1,0 +1,22 @@
+// Importing the Express library to create a web server
+const express = require('express');
+// Importing the Mongoose library to interact with a MongoDB database
+const mongoose = require('mongoose');
+// Creating an Express application instance
+const app = express();
+// Defining the port where the server will listen for requests
+const PORT = 3000;
+
+var exercises: [Exercise] {
+    get {
+        if let data = exercisesJSON.data(using: .utf8) {
+            return (try? JSONDecoder().decode([Exercise].self, from: data)) ?? []
+        }
+        return []
+    }
+    set {
+        if let data = try? JSONEncoder().encode(newValue) {
+            exercisesJSON = String(data: data, encoding: .utf8) ?? "[]"
+        }
+    }
+}
