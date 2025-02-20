@@ -24,15 +24,19 @@ struct ExerciseListView: View {
                         .padding(.top)
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Exercises:")
-                            .font(.headline)
-                            .foregroundColor(appearance.currentScheme.editWorkoutText)
+
+                            Text("Exercises:")
+                                .font(.headline)
+                                .foregroundColor(appearance.currentScheme.editWorkoutText)
                         
                         List {
                             ForEach(workout.exercises, id: \.self) { exercise in
-                                HStack (spacing: 0) {
+                                HStack (spacing: 10) {
                                     Text(exercise.name)
                                         .font(.custom("Exo", size: 18))
+                                        .foregroundColor(appearance.currentScheme.editWorkoutText)
+                                    Spacer()
+                                    Text("3RM: ")
                                         .foregroundColor(appearance.currentScheme.editWorkoutText)
                                     
                                     Spacer()
