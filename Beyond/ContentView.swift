@@ -73,7 +73,7 @@ struct ContentView: View {
                     //                            item in Text(item.name)
                     //                        }
                     //                    }
-                    
+
                     
                     if showLogin {
                         TextField("Username", text: $name)

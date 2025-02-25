@@ -1,12 +1,7 @@
-//
-//  InfoView1.swift
-//  Beyond
-//
-//  Created by Star Andres on 30/10/2024.
-//
 
 import SwiftUI
 import SwiftData
+import Amplify
 
 struct InfoView1: View {
     
@@ -19,9 +14,10 @@ struct InfoView1: View {
     @State private var error = ""
     @State private var passConfirm = ""
     @Binding var navigationPath: [ContentView.Destination]
+    @State private var confirmationCode = "" // ✅ Stores the verification code
+    @State private var isVerificationNeeded = false // ✅ Control
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 Color.white
                 VStack {
@@ -77,7 +73,7 @@ struct InfoView1: View {
                             .padding()
                     }
                     
-                    Button("Start          ") {
+                    Button("Sign Up          ") {
                         if validateForm() {
                             saveCredentials()
                         }
@@ -86,20 +82,28 @@ struct InfoView1: View {
                     .background(Color.white)
                     .foregroundColor(.black)
                     .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.black, lineWidth: 1))
+                    if isVerificationNeeded {
+                        TextField("Enter Confirmation Code", text: $confirmationCode)
+                            .padding()
+                            .frame(width: 300, height: 50)
+                            .background(Color.white)
+                            .cornerRadius(5)
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black, lineWidth: 1))
+                            .keyboardType(.numberPad)
+                        
+                        Button("Confirm") {
+                            confirmSignUp()
+                        }
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
                 }
                 .padding(.bottom, 1450)
             }
-            .onAppear {
-                checkPersistentLogin()
-            }
-            .navigationDestination(isPresented: $showConfirmationView) {
-                ConfirmationView(email: email, navigationPath: $navigationPath)
-            }
         }
-    }
+    
     func validateForm() -> Bool {
         if email.isEmpty || pass.isEmpty || passConfirm.isEmpty {
             error = "All fields are required"
@@ -116,36 +120,50 @@ struct InfoView1: View {
     }
     
     func saveCredentials() {
-        APIManager.shared.signup(email: email, password: pass) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    showConfirmationView = true // Navigate to confirmation screen
-                case .failure(let error):
+        Task {
+            do {
+                let signUpResult = try await Amplify.Auth.signUp(
+                    username: email,
+                    password: pass,
+                    options: .init(userAttributes: [AuthUserAttribute(.email, value: email)])
+                )
+                
+                DispatchQueue.main.async {
+                    if signUpResult.isSignUpComplete {
+                        navigationPath.append(.mainView) // ✅ If sign-up is complete, go to main app
+                    } else {
+                        error = "Check your email for the verification code."
+                        isVerificationNeeded = true // ✅ Show the confirmation code input
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
                     self.error = error.localizedDescription
                 }
             }
         }
     }
     
-    func checkPersistentLogin() {
-        if let savedEmail = KeychainManager.retrieve("userEmail"),
-           let savedPassword = KeychainManager.retrieve("userPassword") {
-            APIManager.shared.login(email: savedEmail, password: savedPassword) { result in
+    func confirmSignUp() {
+        Task {
+            do {
+                let confirmResult = try await Amplify.Auth.confirmSignUp(for: email, confirmationCode: confirmationCode)
+                
                 DispatchQueue.main.async {
-                    switch result {
-                    case .success(let token):
-                        print("Logged in with token: \(token)")
-                        navigationPath.append(.mainView)
-                    case .failure(let error):
-                        print("Failed to auto-login: \(error.localizedDescription)")
+                    if confirmResult.isSignUpComplete {
+                        navigationPath.append(.mainView) // ✅ Navigate to main app upon success
+                    } else {
+                        error = "Verification failed. Try again."
                     }
                 }
+            } catch {
+                DispatchQueue.main.async {
+                    self.error = error.localizedDescription
+                }
             }
-        } else {
-            print("No saved credentials, remain on login screen")
         }
     }
+    
 }
 
 #Preview {

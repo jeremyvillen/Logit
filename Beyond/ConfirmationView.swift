@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplify
 
 struct ConfirmationView: View {
     @State private var confirmationCode = ""
@@ -38,13 +39,16 @@ struct ConfirmationView: View {
     }
 
     func confirmUserEmail() {
-        APIManager.shared.confirmEmail(email: email, code: confirmationCode) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    isConfirmed = true
-                    navigationPath.append(.mainView) // ✅ Navigate to MainView
-                case .failure(let error):
+        Task {
+            do {
+                let result = try await Amplify.Auth.confirmSignUp(for: email, confirmationCode: confirmationCode)
+                DispatchQueue.main.async {
+                    if result.isSignUpComplete {
+                        navigationPath.append(.mainView) // ✅ Navigate to MainView
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
                     errorMessage = error.localizedDescription
                 }
             }

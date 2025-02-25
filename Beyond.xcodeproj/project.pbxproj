@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		01EAED3412FD3A67A2344C26 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = C54ED17F592F9F08A6CC1204 /* awsconfiguration.json */; };
+		BD7EEE6885391EED40347A5A /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 002D22673880AD234350A5C2 /* amplifyconfiguration.json */; };
+		CB36428B2D6DBC4300272FC9 /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = CB36428A2D6DBC4300272FC9 /* AWSCognitoAuthPlugin */; };
+		CB36428D2D6DBC4300272FC9 /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = CB36428C2D6DBC4300272FC9 /* Amplify */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		EC7E0ACD2CD2C7940082CDA9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,7 +30,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		CBA09F8F2D694A0600911A10 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		002D22673880AD234350A5C2 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		C54ED17F592F9F08A6CC1204 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		EC7E0ABC2CD2C78F0082CDA9 /* Beyond.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beyond.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC7E0ACC2CD2C7940082CDA9 /* BeyondTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeyondTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC7E0AD62CD2C7940082CDA9 /* BeyondUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeyondUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,7 +55,11 @@
 		CB6A0D632D35037900F93419 /* Exceptions for "Beyond" folder in "Beyond" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Cartfile,
+				Cartfile.resolved,
 				Info.plist,
+				Podfile,
+				Podfile.lock,
 			);
 			target = EC7E0ABB2CD2C78F0082CDA9 /* Beyond */;
 		};
@@ -65,6 +91,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB36428B2D6DBC4300272FC9 /* AWSCognitoAuthPlugin in Frameworks */,
+				CB36428D2D6DBC4300272FC9 /* Amplify in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +113,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73025BE5CDBCF95B7D123D6E /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				C54ED17F592F9F08A6CC1204 /* awsconfiguration.json */,
+				002D22673880AD234350A5C2 /* amplifyconfiguration.json */,
+			);
+			name = AmplifyConfig;
+			sourceTree = "<group>";
+		};
+		D67FBF7118796AEE628EE2A9 /* AmplifyModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = AmplifyModels;
+			sourceTree = "<group>";
+		};
 		EC7E0AB32CD2C78F0082CDA9 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +136,8 @@
 				EC7E0ACF2CD2C7940082CDA9 /* BeyondTests */,
 				EC7E0AD92CD2C7940082CDA9 /* BeyondUITests */,
 				EC7E0ABD2CD2C78F0082CDA9 /* Products */,
+				73025BE5CDBCF95B7D123D6E /* AmplifyConfig */,
+				D67FBF7118796AEE628EE2A9 /* AmplifyModels */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +161,7 @@
 				EC7E0AB82CD2C78F0082CDA9 /* Sources */,
 				EC7E0AB92CD2C78F0082CDA9 /* Frameworks */,
 				EC7E0ABA2CD2C78F0082CDA9 /* Resources */,
+				CBA09F8F2D694A0600911A10 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,8 +171,6 @@
 				EC7E0ABE2CD2C78F0082CDA9 /* Beyond */,
 			);
 			name = Beyond;
-			packageProductDependencies = (
-			);
 			productName = Beyond;
 			productReference = EC7E0ABC2CD2C78F0082CDA9 /* Beyond.app */;
 			productType = "com.apple.product-type.application";
@@ -147,8 +192,6 @@
 				EC7E0ACF2CD2C7940082CDA9 /* BeyondTests */,
 			);
 			name = BeyondTests;
-			packageProductDependencies = (
-			);
 			productName = BeyondTests;
 			productReference = EC7E0ACC2CD2C7940082CDA9 /* BeyondTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -170,8 +213,6 @@
 				EC7E0AD92CD2C7940082CDA9 /* BeyondUITests */,
 			);
 			name = BeyondUITests;
-			packageProductDependencies = (
-			);
 			productName = BeyondUITests;
 			productReference = EC7E0AD62CD2C7940082CDA9 /* BeyondUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -184,7 +225,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					EC7E0ABB2CD2C78F0082CDA9 = {
 						CreatedOnToolsVersion = 16.0;
@@ -208,6 +249,9 @@
 			);
 			mainGroup = EC7E0AB32CD2C78F0082CDA9;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CB3642892D6DBC4300272FC9 /* XCRemoteSwiftPackageReference "amplify-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EC7E0ABD2CD2C78F0082CDA9 /* Products */;
 			projectDirPath = "";
@@ -225,6 +269,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01EAED3412FD3A67A2344C26 /* awsconfiguration.json in Resources */,
+				BD7EEE6885391EED40347A5A /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +457,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Beyond/Preview Content\"";
 				DEVELOPMENT_TEAM = BEHGT38UGB;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Beyond/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -441,6 +488,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Beyond/Preview Content\"";
 				DEVELOPMENT_TEAM = BEHGT38UGB;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Beyond/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -573,6 +621,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CB3642892D6DBC4300272FC9 /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/amplify-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.45.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CB36428A2D6DBC4300272FC9 /* AWSCognitoAuthPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB3642892D6DBC4300272FC9 /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSCognitoAuthPlugin;
+		};
+		CB36428C2D6DBC4300272FC9 /* Amplify */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB3642892D6DBC4300272FC9 /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = Amplify;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EC7E0AB42CD2C78F0082CDA9 /* Project object */;
 }
